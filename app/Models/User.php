@@ -21,6 +21,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
+        'etablissement_id',
+        'prenom',
+        'lieu_de_naissance',
+        'date_de_naissance',
+        'nationalite',
+        'phone',
+        'address',
     ];
 
     /**
@@ -42,4 +50,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+   public function etablissement(){
+         return $this->belongsTo(Etablissement::class);
+   }
+
 }

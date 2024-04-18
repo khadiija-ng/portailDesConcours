@@ -12,10 +12,16 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="Auth()->user()->role_id === 2 ? route('etablissement') : (Auth()->user()->role_id === 1 ? route('admin') : route('dashboard'))" :active="request()->routeIs('welcome')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                
+                {{--  <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="Auth()->user()->role_id == 2 ?  route('etablissement') : route('admin')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                </div>  --}}
             </div>
 
             <!-- Settings Dropdown -->

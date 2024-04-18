@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Concour;
+use App\Models\Etablissement;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,12 +26,27 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request): RedirectResponse|view
     {
+        // dd(1);
         $request->authenticate();
-
         $request->session()->regenerate();
-
+        if($request->user()->role_id === 1){
+            return redirect('Admin/dashboard');
+        }
+        if($request->user()->role_id === 2){
+             //dd($request->user()->etablissement_id);
+            $etablissement=Etablissement::find($request->user()->etablissement_id);
+            // dd($etablissement->sigle);
+            //return redirect()->route('Admin_etablissement/dashboard',compact('etablissement'));
+            $concour = Concour::where('etablissement_id','=',$etablissement->id)->get();
+            return view('admin_etablissement.dashboard', compact('etablissement','concour'));
+        }
+        if($request->user()->role_id === 3){
+            // $user = User::find()->get();
+           return view('dashboard');
+        }
+       
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
