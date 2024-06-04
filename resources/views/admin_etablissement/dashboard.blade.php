@@ -33,6 +33,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Custom styles for this template-->
     <link href="../admin_assets/css/sb-admin-2.min.css" rel="stylesheet">
@@ -71,9 +72,15 @@
                  @include('admin_etablissement.statistic')         
 
                 </div>
-                @section('content')
-                <table class="table table-striped ">
-                    <thead>
+                {{--  @section('content')  --}}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Tous les Concours</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
                         <tr>
                             <th>Nom</th>
                             <th>Date Debut</th>
@@ -81,11 +88,12 @@
                             <th>Etat</th>
                             <th>Frais</th>
                             {{--  <th>Image</th>  --}}
-                            <th>Description</th>
+                            {{--  <th>Description</th>  --}}
                             <th class="text-end">Actions</th>
                         </tr>
                     </thead> 
                     <tbody>
+                        @if (isset($concour))
                         @foreach ($concour as $val)
                             <tr>
                                 <td>{{ $val->nom }}</td>  
@@ -94,10 +102,13 @@
                                 <td>{{ $val->etat }}</td> 
                                 <td>{{ $val->Frais }}</td>
                                 {{--  <td>{{ $val->image }}</td>  --}}
-                                <td>{{ $val->description }}</td>
+                                {{--  <td>{{ $val->description }}</td>  --}}
 
                              <td>
                                 <div class="d-flex gap-2 w-100 justify-content-end">
+                                    <a class="btn btn-primary btn-sm" href="{{route('listeCandidat',$val->id)}}">
+                                        Voir Candidat
+                                    </a>
                                     <a class="btn btn-warning btn-sm" href="">
                                         Details
                                     </a>
@@ -109,6 +120,7 @@
                                         @method("DELETE")
                                                 <button onclick="return confirm('Êtes-vous sûr ?')"
                                                 type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fa-solid fa-trash"></i>
                                                     Supprimer
                                                 </button>
                                     </form>
@@ -116,9 +128,22 @@
                              </td>
                             </tr>
                         @endforeach
-                    </tbody>         
+                        @endif
+                    </tbody>
                 </table>
-                @show
+                <div class="position-relative">
+                    <div class="position-absolute start-50">
+                        {{ $concour->links('pagination::bootstrap-4') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{--  </div>  --}}
+                {{--  @show  --}}
+                
+              
+                
+
                 <!-- /.container-fluid -->
 
             </div>
@@ -128,7 +153,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Plateforme 2024</span>
+                        <span>Copyright &copy; Portail des concours 2024</span>
                     </div>
                 </div>
             </footer>

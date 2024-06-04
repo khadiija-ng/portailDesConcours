@@ -16,23 +16,25 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Custom styles for this template-->
     <link href="../admin_assets/css/sb-admin-2.min.css" rel="stylesheet">
     <style>
-        a{
+        a {
             margin-right: 10px;
         }
-        
     </style>
 </head>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-     @include('admin.sidebar')
+        @include('admin.sidebar')
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -47,68 +49,93 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                @include('admin.statistic')         
+                    @include('admin.statistic')
 
                 </div>
-                <table class="table table-striped ">
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Date Debut</th>
-                            <th >Date Fin</th>
-                            <th>Etat</th>
-                            <th>Frais</th>
-                            {{--  <th>Image</th>  --}}
-                            <th>Description</th>
-                            <th class="text-end">Actions</th>
-                        </tr>
-                    </thead> 
-                    <tbody>
-                        @foreach ($concour as $val)
-                            <tr>
-                                <td>{{ $val->nom }}</td>  
-                                <td>{{ $val->date_debut }}</td>  
-                                <td>{{ $val->date_fin }}</td>  
-                                <td>{{ $val->etat }}</td> 
-                                <td>{{ $val->Frais }}</td>
-                                {{--  <td>{{ $val->image }}</td>  --}}
-                                <td>{{ $val->description }}</td> 
-                             <td>
-                                <div class="d-flex gap-2 w-100 justify-content-end">
-                                    <a class="btn btn-warning btn-sm" href="">
-                                        Details
-                                    </a>
-                                    <a class="btn btn-primary btn-sm" href="{{route('concours.edit',$val->id)}}">
-                                        Modifier
-                                    </a>
-                                    <form action="{{ route('concours.destroy',$val->id) }}" method="post">
-                                        @csrf
-                                        @method("DELETE")
-                                                <button onclick="return confirm('Êtes-vous sûr ?')"
-                                                type="submit" class="btn btn-danger btn-sm">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Tous les Concours</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Nom Concour</th>
+                                        <th>Date Debut</th>
+                                        <th>Date Fin</th>
+                                        <th>Etat</th>
+                                        <th>Frais</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                {{--  <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Office</th>
+                                        <th>Age</th>
+                                        <th>Start date</th>
+                                        <th>Salary</th>
+                                    </tr>
+                                </tfoot>  --}}
+                                <tbody>
+                                    @foreach ($concour as $val)
+                                    <tr>
+                                        <td>{{ $val->nom }}</td>
+                                        <td>{{ $val->date_debut }}</td>
+                                        <td>{{ $val->date_fin }}</td>
+                                        <td>{{ $val->etat }}</td>
+                                        <td>{{ $val->Frais }}</td>
+                                        <td><div class="d-flex gap-2 w-100 justify-content-end">
+                                            <a class="btn btn-warning btn-sm" href="{{ route('listeC', $val->id) }}">
+                                                Voir Candidats
+                                            </a>
+                                            <a class="btn btn-primary btn-sm" href="{{ route('concours.edit', $val->id) }}">
+                                                Modifier
+                                            </a>
+                                            <form action="{{ route('concours.destroy', $val->id) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button onclick="return confirm('Êtes-vous sûr ?')" type="submit"
+                                                    class="btn btn-danger btn-sm">
+                                                    <i class="fa-solid fa-trash"></i>
                                                     Supprimer
                                                 </button>
-                                    </form>
+                                            </form>
+                                        </div></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="position-relative">
+                                <div class="position-absolute start-50">
+                                    {{ $concour->links('pagination::bootstrap-4') }}
                                 </div>
-                             </td>
-                            </tr>
-                        @endforeach
-                    </tbody>         
-                </table>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- End of Main Content -->
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Plateforme 2024</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </footer>
-            <!-- End of Footer -->
+
+            </div>
+            <!-- /.container-fluid -->
+
         </div>
-        <!-- End of Content Wrapper -->
+       
+        <!-- /.container-fluid -->
+    </div>
+    <!-- End of Main Content -->
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Plateforme 2024</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -137,4 +164,5 @@
 
 
 </body>
+
 </html>

@@ -37,6 +37,17 @@
             <x-text-input id="nationalite" class="block mt-1 w-full" type="text" name="nationalite" :value="old('nationalite')" required autofocus autocomplete="nationalite" />
             <x-input-error :messages="$errors->get('nationalite')" class="mt-2" />
         </div>
+        <div>
+            <label for="serie">Sélectionnez votre serie :</label>
+            <select class=""  name="serie" id="serie" required >
+                <option value="S1">S1</option>
+                <option value="S2">S2</option>
+                <option value="S3">S3</option>
+                <option value="L2">L2</option>
+                <option value="S4">S4</option>
+                <option value="neant">neant</option>
+            </select>
+        </div>
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
@@ -75,11 +86,11 @@
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+                {{ __("Vous avez un compte ") }}
             </a>
 
             <x-primary-button class="ms-4">
-                {{ __('Register') }}
+                {{ __("S'inscrire") }}
             </x-primary-button>
         </div>
     </form>

@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+
 
 class User extends Authenticatable
 {
@@ -28,7 +33,9 @@ class User extends Authenticatable
         'date_de_naissance',
         'nationalite',
         'phone',
+        'phone',
         'address',
+        'serie'
     ];
 
     /**
@@ -51,8 +58,25 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-   public function etablissement(){
-         return $this->belongsTo(Etablissement::class);
+   public function etablissement(): BelongsTo{
+         return $this->belongsTo(Etablissement::class, 'etablissement_id');
+   }
+   public function role(): BelongsTo{
+    return $this->belongsTo(Role::class, 'role_id');
+}
+   public function concours(): BelongsToMany
+   {
+    return $this->belongsToMany(Concour::class , 'inscription_concours');
    }
 
+   public function inscription(): hasMany
+   {
+    return $this->hasMany(InscriptionConcour::class );
+   }
+
+   public function temoignages(): HasMany
+   {
+       return $this->hasMany(Temoignage::class);
+   }
+   
 }

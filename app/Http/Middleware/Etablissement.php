@@ -26,6 +26,9 @@ class Etablissement
         if($user->role_id === 1){
             return redirect('Admin/dashboard');
         }
+        if($user->role_id === 3){
+            return redirect('Candidat/dashboard');
+        }
     
     }
 }

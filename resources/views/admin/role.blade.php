@@ -16,6 +16,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Custom styles for this template-->
     <link href="../admin_assets/css/sb-admin-2.min.css" rel="stylesheet">
@@ -49,8 +50,7 @@
                     <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Liste des Utilisateurs</h1>
-                <a href="{{ route('utilisateur.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                            class="fas fa-download fa-sm text-white-50"></i>Ajouter Un utilisateur</a>
+                <a href="{{ route('utilisateur.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-plus"></i> Ajouter Un utilisateur</a>
                 </div>
 
                 </div>
@@ -75,8 +75,8 @@
                                 <td>{{ $val->name }}</td>  
                                 <td>{{ $val->prenom }}</td>  
                                 <td>{{ $val->email }}</td>  
-                                <td>{{ $val->role_id }}</td> 
-                                <td>{{ $val->etablissement_id }}</td>
+                                <td>{{ $val->role->titre }}</td> 
+                                <td>{{ $val->etablissement->sigle }}</td>
                                 {{--  <td>{{ $val->id }}</td>    --}}
 
                                 {{--  <td>{{ $val->image }}</td>  --}}
@@ -103,7 +103,11 @@
                         @endforeach
                     </tbody>         
                 </table>
-                   
+                <div class="position-relative">
+                    <div class="position-absolute start-50">
+                        {{ $user->links('pagination::bootstrap-4') }}
+                    </div>
+                </div>
                 <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->

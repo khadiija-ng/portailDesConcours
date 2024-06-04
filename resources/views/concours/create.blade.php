@@ -47,8 +47,10 @@
                 </div>
 
                 <div>
-                    <x-input-label for="etat" :value="__('Etat')" />
-                    <x-text-input id="etat" class="block mt-1 w-full" type="number" name="etat" :value="old('etat')" required autofocus autocomplete="etat" />
+                    <input type="radio" name="etat" value="1"> Ouvert<br>
+                    <input type="radio" name="etat" value="0"> Fermé<br>
+                    {{--  <x-input-label for="etat" :value="__('Etat')" />
+                    <x-text-input id="etat" class="block mt-1 w-full" type="number" name="etat" :value="old('etat')" required autofocus autocomplete="etat" />  --}}
                     <x-input-error :messages="$errors->get('etat')" class="mt-2" />
                 </div>
 

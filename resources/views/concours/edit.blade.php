@@ -46,8 +46,10 @@
             </div>
 
             <div>
-                <x-input-label for="etat" :value="__('Etat')" />
-                <x-text-input id="etat" class="block mt-1 w-full" type="number" name="etat" value="{{$concour->etat}}" required autofocus autocomplete="etat" />
+                <input type="radio" name="etat" value="1" {{ $concour->etat == 1 ? 'checked' : '' }}> Ouvert<br>
+                <input type="radio" name="etat" value="0" {{ $concour->etat == 0 ? 'checked' : '' }}> Fermé<br>
+                {{--  <x-input-label for="etat" :value="__('Etat')" />
+                <x-text-input id="etat" class="block mt-1 w-full" type="number" name="etat" value="{{$concour->etat}}" required autofocus autocomplete="etat" />  --}}
                 <x-input-error :messages="$errors->get('etat')" class="mt-2" />
             </div>
 

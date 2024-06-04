@@ -47,7 +47,7 @@ class EtablissementController extends Controller
              'logo' => $path.$filename,
             'address' => $request->address,
         ]);
-        return redirect()->route('etablissement')->with('success', "eteblissement ajouter avec succes");
+        return redirect()->route('etablissements')->with('success', "eteblissement ajouter avec succes");
     }
 
     /**
@@ -77,7 +77,7 @@ class EtablissementController extends Controller
         
         $validated = $request->validated();
         $etablissement->update($validated);
-        return redirect()->route('etablissement')
+        return redirect()->route('etablissements')
             ->with('success', 'etablissement modifiée avec succès !');
     }
 
@@ -88,7 +88,7 @@ class EtablissementController extends Controller
     {
         $etablissement->delete();
         
-        return redirect()->route('etablissement')
+        return redirect()->route('etablissements')
         ->with('success', "Concour supprimé avec succès !");
     }
 }

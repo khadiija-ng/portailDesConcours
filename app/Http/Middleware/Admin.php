@@ -26,6 +26,9 @@ class Admin
         if($user->role_id === 2){
             return redirect('admin_etablissement/dashboard');
         }
+        if($user->role_id === 3){
+            return redirect('Candidat/dashboard');
+        }
        
     }
 }

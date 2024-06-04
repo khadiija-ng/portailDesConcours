@@ -15,15 +15,24 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
+            <a class="nav-link" href="">
+                <i class="fa-solid fa-bars"></i>
+                <span>Tableau de Bord</span></a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+            <a class="nav-link" href="{{ route('home') }}">
+            <i class="fa-solid fa-house"></i>
+            <span>Acceuil</span></a>
+    </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ route('etablissement') }}">
+                <i class="fa-solid fa-scroll"></i>
                 <span>Concours</span></a>
         </li>       
-
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ route('centre.index') }}">
+                <i class="fa-solid fa-school"></i>
+                <span>Centre</span></a>
+        </li>  
     </ul>
     <!-- End of Sidebar -->

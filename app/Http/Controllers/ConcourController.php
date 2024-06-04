@@ -15,7 +15,10 @@ class ConcourController extends Controller
      */
     public function index()
     {
-        $concours = Concour::all();
+        // $concours = Concour::with('etablissement')->get();
+        // dd($concours->etablissement->libelle);
+        $concours = Concour::with('etablissement')->orderby('id', 'desc')->paginate(6);
+        // Faire un dump pour voir les détails du concours et de l'établissement associé
         return view('concours.index', compact("concours"));
     }
 
@@ -24,15 +27,14 @@ class ConcourController extends Controller
      */
     public function create(Request $request)
     {
-        if (1===$request->user()->etablissement_id){
-            $etablissement=Etablissement::all();
-        }
-        else{
+        if (1 === $request->user()->etablissement_id) {
+            $etablissement = Etablissement::all();
+        } else {
 
-            $etablissement=Etablissement::where('id',$request->user()->etablissement_id)->get();
+            $etablissement = Etablissement::where('id', $request->user()->etablissement_id)->get();
         }
         // find($request->user()->etablissement_id)->get();
-       // $concour = Concour::where('etablissement_id','=',$request->user()->etablissement_id)->get();
+        // $concour = Concour::where('etablissement_id','=',$request->user()->etablissement_id)->get();
         return view('concours.create', compact('etablissement'));
     }
 
@@ -44,16 +46,16 @@ class ConcourController extends Controller
         $validated = $request->validated();
         // dd($request->has('image'));
         if ($request->has('image')) {
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension();
-        $filename = time().'.'.$extension;
-        $path = 'uploads/';
-        $file->move($path, $filename);
-        // dd(1);
-    }
-        
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $path = 'uploads/';
+            $file->move($path, $filename);
+            // dd(1);
+        }
+
         Concour::create([
-            'image' =>$path.$filename,
+            'image' => $path . $filename,
             'nom' => $request->nom,
             'description' => $request->description,
             'date_debut' => $request->date_debut,
@@ -62,15 +64,14 @@ class ConcourController extends Controller
             'Frais' => $request->Frais,
             'etablissement_id' => $request->etablissement_id,
         ]);
-        if ($request->user()->etablissement_id===2){
+        if ($request->user()->etablissement_id === 2) {
             return redirect('Admin_etablissement/dashboard')
                 ->with('success', 'concour creer avec succès !');
-            }else{
-                return redirect()->route('admin')
+        } else {
+            return redirect()->route('admin')
                 ->with('success', 'concour creer avec succès !');
-            }
-    
-    } 
+        }
+    }
 
     /**
      * Display the specified resource.
@@ -83,17 +84,16 @@ class ConcourController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request ,Concour $concour)
+    public function edit(Request $request, Concour $concour)
     {
-        if (1===$request->user()->etablissement_id){
-            $etablissement=Etablissement::all();
-        }
-        else{
+        if (1 === $request->user()->etablissement_id) {
+            $etablissement = Etablissement::all();
+        } else {
 
-            $etablissement=Etablissement::where('id',$request->user()->etablissement_id)->get();
+            $etablissement = Etablissement::where('id', $request->user()->etablissement_id)->get();
         }
         // dd(1);
-        return view('concours.edit',compact('concour','etablissement'));
+        return view('concours.edit', compact('concour', 'etablissement'));
     }
 
     /**
@@ -104,29 +104,36 @@ class ConcourController extends Controller
         // dd($concour->id);
         $validated = $request->validated();
         $concour->update($validated);
-        if ($request->user()->etablissement_id===2){
-        return redirect('Admin_etablissement/dashboard')
-            ->with('success', 'concour modifiée avec succès !');
-        }else{
+        if ($request->user()->etablissement_id === 2) {
+            return redirect('Admin_etablissement/dashboard')
+                ->with('success', 'concour modifiée avec succès !');
+        } else {
             return redirect()->route('admin')
-            ->with('success', 'concour modifiée avec succès !');
+                ->with('success', 'concour modifiée avec succès !');
         }
-            
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request , Concour $concour)
+    public function destroy(Request $request, Concour $concour)
     {
         $concour->delete();
-        
-        if ($request->user()->etablissement_id===2){
+
+        if ($request->user()->etablissement_id === 2) {
             return redirect('Admin_etablissement/dashboard')
                 ->with('success', 'concour supprimer avec succès !');
-            }else{
-                return redirect()->route('admin')
+        } else {
+            return redirect()->route('admin')
                 ->with('success', 'concour supprimer avec succès !');
-            }
+        }
+    }
+
+    public function details($id)
+    {
+        $concour = Concour::where('id', $id)->first();
+        // dd($concour);
+        // dd($concour->image);
+        return view('concours.details', compact('concour'));
     }
 }

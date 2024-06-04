@@ -1,4 +1,4 @@
-<style>
+{{--  <style>
     .col{
         margin-top: 5px;
     }
@@ -42,22 +42,31 @@
               </form>
         </div>
     </div>
-</div> 
+</div>   --}}
+<style>
+  #titre{
+    font-size: bold;
+  }
+  .test{
+    width: 130px;
+    height: 70px;
+  }
+</style>
 <header id="header" class="header d-flex align-items-center sticky-top">
     
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
-        {{--  <img src="assets/img/logo.png" alt="">   --}}
-        <h1 class="">PLateforme</h1>
+      <img class="test" src="{{ asset('assets/img/logoa.png') }}" alt=""> 
+      <a href="" class="logo d-flex align-items-center me-auto">
+        <h3 class="text-secondary-emphasis" id="titre"></h3>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="{{ route('home') }}" >Acceuil</a></li>
-          <li><a href="">A Propos</a></li>
+          <li><a href="{{ route('propos') }}">A Propos</a></li>
           <li><a href="{{ route('concours.index')}}">Concours</a></li>
-          <li><a href="">Contact</a></li>
+          <li><a href="{{ route('contact.create') }}">Contact</a></li>
          
           <li class="megamenu has-dropdown"><a href="#"><span>Anciennes Epreuves</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -89,18 +98,17 @@
             </ul>
           </li>
           
-          <li><a href="contact.html">Contact</a></li>
           <!-- Authentication Links -->
           @guest
           @if (Route::has('login'))
               <li>
-                  <a class="btn-getstarted" href="{{ route('login') }}">{{ __('Connexion') }}</a>
+                  <a class="btn-getstarted" href="{{ route('login') }}">{{ __("Se Connecter") }}</a>
               </li>
           @endif
 
           @if (Route::has('register'))
               <li>
-                  <a class="btn-getstarted" href="{{ route('register') }}">{{ __('Inscription') }}</a>
+                  <a class="btn-getstarted " href="{{ route('register') }}">{{ __("S'inscrire   _") }}</a>
               </li>
           @endif
       @else

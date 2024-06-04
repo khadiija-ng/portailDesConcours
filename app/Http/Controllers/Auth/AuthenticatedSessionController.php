@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Concour;
 use App\Models\Etablissement;
-use App\Models\User;
+use App\Models\Media;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -36,15 +36,19 @@ class AuthenticatedSessionController extends Controller
         }
         if($request->user()->role_id === 2){
              //dd($request->user()->etablissement_id);
-            $etablissement=Etablissement::find($request->user()->etablissement_id);
+            // $etablissement=Etablissement::find($request->user()->etablissement_id);
             // dd($etablissement->sigle);
             //return redirect()->route('Admin_etablissement/dashboard',compact('etablissement'));
-            $concour = Concour::where('etablissement_id','=',$etablissement->id)->get();
-            return view('admin_etablissement.dashboard', compact('etablissement','concour'));
+            // $concour = Concour::where('etablissement_id','=',$etablissement->id)->get();
+            // return view('admin_etablissement.dashboard', compact('etablissement','concour'));
+            return redirect('Admin_etablissement/dashboard');
         }
         if($request->user()->role_id === 3){
             // $user = User::find()->get();
-           return view('dashboard');
+        //     $user = auth()->user();
+        //     $medias = Media::where('user_id','=',$user->id)->get();
+        //    return view('candidat.dashboard',compact('medias','user'));
+       return redirect('Candidat/dashboard');
         }
        
         return redirect()->intended(RouteServiceProvider::HOME);

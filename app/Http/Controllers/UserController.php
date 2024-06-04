@@ -44,6 +44,7 @@ class UserController extends Controller
             'phone' => ['required','max:255'],
             'date_de_naissance' => ['required','max:255'],
             'lieu_de_naissance' => ['required','string', 'max:255'],
+            'serie' => ['required'],
             'etablissement_id'  => ['required','string', 'max:255'],
             'role_id' => ['required','string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
@@ -59,6 +60,7 @@ class UserController extends Controller
             'address' => $request->address,
             'phone' => $request->phone,
             'date_de_naissance' => $request->date_de_naissance,
+            'serie' => $request->serie,
             'etablissement_id' => $request->etablissement_id,
             'role_id' => $request->role_id,
             'lieu_de_naissance' => $request->lieu_de_naissance,
@@ -85,6 +87,8 @@ class UserController extends Controller
         // dd($id);
         $roles = Role::all();
         $etablissements = Etablissement::all();
+        $user = User::with('concours')->first();
+        // dd($user);
         $user = User::find($id);
         // dd($user);
         return view('utilisateurs.edit',compact('user','roles','etablissements'));
@@ -114,17 +118,18 @@ class UserController extends Controller
        $user = User::find($id);
        $user->update($validated);
       
-        return redirect()->route('admin')
+        return redirect()->route('role')
         ->with('success', 'bien ajouter');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
+      $user = User::find($id);
         $user->delete();
-        return redirect()->route('admin')
-        ->with('success', 'bien ajouter');
+        return redirect()->route('role')
+        ->with('success', 'bien supprimer');
     }
 }

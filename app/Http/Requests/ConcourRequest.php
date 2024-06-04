@@ -26,7 +26,7 @@ class ConcourRequest extends FormRequest
             'description' => 'required',
             'date_debut' => 'date',
             'date_fin'  => 'date',
-            'etat' => 'required',
+            'etat' => 'required|in:0,1',
             'Frais' => 'required',
             'etablissement_id' => 'required',
             // 'image' => 'required'

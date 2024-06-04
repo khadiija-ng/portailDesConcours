@@ -25,7 +25,7 @@
   --default-color-rgb: 68, 68, 68;
   --heading-color: #37423b;
   --heading-color-rgb: 55, 66, 59;
-  --accent-color: #291da8;
+  --accent-color: #4169E1;
   --accent-color-rgb: 95, 207, 128;
   --contrast-color: #ffffff;
   --contrast-color-rgb: 255, 255, 255;
@@ -33,7 +33,7 @@
 
 /* Nav Menu Colors */
 :root {
-  --nav-color: #272828;
+  --nav-color: #0e0f0f;
   --nav-hover-color: #291da8;
   --nav-dropdown-color: #272828;
   --nav-dropdown-hover-color: #291da8;

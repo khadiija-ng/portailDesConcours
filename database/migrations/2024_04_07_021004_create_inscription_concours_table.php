@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Centre;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Concour::class);
+            $table->unique(['user_id', 'concour_id']);
+            $table->foreignIdFor(Centre::class);
             $table->timestamps();
         });
     }
