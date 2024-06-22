@@ -72,7 +72,7 @@
 
           <div class="course-info d-flex justify-content-between align-items-center">
             <h5>Etat</h5>
-            <p><a href="#">@if($concour->etat ===1) Ouvert
+            <p><a href="#">@if($concour->date_fin >= now()) Ouvert
                 @else Fermé
                 @endif</a></p>
           </div>
